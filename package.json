@@ -1,0 +1,17 @@
+{
+  "name": "clubify",
+  "version": "1.0.0",
+  "description": "Club Management System",
+  "scripts": {
+    "build": "cd client && npm run build",
+    "start": "cd client && npm run start",
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "install-all": "npm install && cd client && npm install && cd ../server && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
