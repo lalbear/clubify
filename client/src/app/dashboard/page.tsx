@@ -159,7 +159,7 @@ export default function DashboardPage() {
             Welcome back, {user.name}! 👋
           </h2>
           <p className="text-gray-600 dark:text-gray-300">
-            Here's your {user.role} dashboard overview.
+            Here&apos;s your {user.role} dashboard overview.
           </p>
         </div>
 
