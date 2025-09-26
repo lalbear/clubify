@@ -22,69 +22,61 @@ A modern, full-stack club management application built with Next.js, Node.js, an
 
 ## 📁 Project Structure
 
-```
 clubify/
 ├── client/          # Next.js frontend
 ├── server/          # Node.js backend
 ├── vercel.json      # Vercel deployment config
 └── README.md
-```
 
 ## 🚀 Quick Start
 
 ### Local Development
 
 1. **Clone the repository**
-   ```bash
    git clone <your-repo-url>
    cd clubify
-   ```
 
 2. **Start the backend**
-   ```bash
    cd server
    npm install
    npm run dev
-   ```
 
 3. **Start the frontend** (in a new terminal)
-   ```bash
    cd client
    npm install
    npm run dev
-   ```
 
 4. **Open your browser**
-   - Frontend: http://localhost:3000
-   - Backend: http://localhost:5001
+   - Frontend: http://localhost:3000  
+   - Backend: http://localhost:5001  
+
+   ✅ Or visit the deployed app here: [Clubify on Vercel](https://clubify-henna.vercel.app/)
 
 ### Environment Variables
 
 #### Backend (.env)
-```
-PORT=5001
-MONGODB_URI=mongodb://localhost:27017/clubify
-JWT_SECRET=your-secret-key
-```
+PORT=5001  
+MONGODB_URI=mongodb://localhost:27017/clubify  
+JWT_SECRET=your-secret-key  
 
 #### Frontend (.env.local)
-```
-NEXT_PUBLIC_API_URL=http://localhost:5001
-```
+NEXT_PUBLIC_API_URL=https://clubify-henna.vercel.app
 
 ## 🌐 Deployment
 
-This project is configured for easy deployment on Vercel:
+This project is **deployed on Vercel**:  
+👉 [https://clubify-henna.vercel.app/](https://clubify-henna.vercel.app/)
 
-1. **Push to GitHub**
-2. **Connect to Vercel**
-3. **Deploy automatically**
+Steps to deploy:
+1. Push to GitHub
+2. Connect to Vercel
+3. Deploy automatically
 
 ## 📱 Usage
 
-1. **Sign up** for a new account
-2. **Choose your role**: Member, Lead, or Board
-3. **Start managing** your club activities!
+1. Sign up for a new account
+2. Choose your role: Member, Lead, or Board
+3. Start managing your club activities!
 
 ## 👥 User Roles
 
