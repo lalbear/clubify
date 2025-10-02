@@ -4,6 +4,7 @@ export async function GET() {
   return NextResponse.json({ 
     status: 'healthy',
     timestamp: new Date().toISOString(),
-    uptime: process.uptime()
+    uptime: process.uptime(),
+    version: '1.0.1'
   });
 }
