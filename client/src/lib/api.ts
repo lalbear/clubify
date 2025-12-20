@@ -25,6 +25,21 @@ class ApiClient {
   constructor(baseURL: string) {
     this.baseURL = baseURL;
   }
+    // ================= EMAIL METHODS =================
+  async sendEmailToLead(
+    recipientId: string,
+    subject: string,
+    message: string
+  ): Promise<ApiResponse> {
+    return this.request('/api/send-email', {
+      method: 'POST',
+      body: JSON.stringify({
+        recipientId,
+        subject,
+        message
+      })
+    });
+  }
 
   private getAuthHeaders(): Record<string, string> {
     const user = localStorage.getItem('user');

@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const { sendEmail } = require('./services/emailService');
 const mongoose = require('mongoose');
 const config = require('./config');
 const User = require('./models/User');
@@ -496,6 +497,7 @@ app.post('/api/products', authenticateUser, requireRole(['lead', 'board']), asyn
     console.log('User role:', req.user.role);
     
     // Handle default club
+
     let clubId = req.body.club;
     if (req.body.club === 'default-club') {
       console.log('Handling default club');
@@ -840,6 +842,83 @@ app.put('/api/messages/:id/read', authenticateUser, async (req, res) => {
   }
 });
 
+// ==================== EMAIL ROUTE ====================
+// Send email to lead/board
+app.post('/api/send-email', authenticateUser, async (req, res) => {
+  try {
+    const { recipientId, subject, message } = req.body;
+
+    console.log('📧 Email request from:', req.user.name);
+    console.log('Recipient ID:', recipientId);
+
+    // Validate inputs
+    if (!recipientId || !subject || !message) {
+      return res.status(400).json({
+        success: false,
+        message: 'Recipient, subject, and message are required'
+      });
+    }
+
+    // Fetch recipient
+    const recipient = await User.findById(recipientId);
+
+    if (!recipient) {
+      return res.status(404).json({
+        success: false,
+        message: 'Recipient not found'
+      });
+    }
+
+    // Allow only lead or board
+    if (!['lead', 'board'].includes(recipient.role)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Can only send emails to leads or board members'
+      });
+    }
+
+    console.log('Sending email to:', recipient.email);
+
+    // Send email
+    const result = await sendEmail(
+      recipient.email,
+      subject,
+      message,
+      req.user.name,
+      req.user.email
+    );
+
+    if (result.success) {
+      console.log('✅ Email sent successfully');
+
+      res.json({
+        success: true,
+        message: `Email sent successfully to ${recipient.name}`,
+        recipient: {
+          name: recipient.name,
+          email: recipient.email,
+          role: recipient.role
+        }
+      });
+    } else {
+      console.error('❌ Email send failed:', result.error);
+
+      res.status(500).json({
+        success: false,
+        message: 'Failed to send email',
+        error: result.error
+      });
+    }
+  } catch (error) {
+    console.error('❌ Email route error:', error);
+
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message
+    });
+  }
+});
 // Users routes
 app.get('/api/users', authenticateUser, requireRole(['lead', 'board']), async (req, res) => {
   try {
